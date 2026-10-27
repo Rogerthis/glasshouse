@@ -3,7 +3,7 @@
 The **Screensaver** tab, `/?tab=screensaver`, provides fifteen alternatives to LG's default, and any added on the TV:
 
 * Clock
-* Clock date, always in 24-hour time, with the weekday and date beneath it
+* Clock date, always in 24-hour time with seconds, the weekday and date beneath it
 * Starfield
 * Fireworks
 * Bokeh, soft circles of light drifting in and out

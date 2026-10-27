@@ -8,10 +8,10 @@
     "ru": "Часы и дата"
   },
   "description": {
-    "en": "A 24-hour digital clock with the weekday and date on black, moving to a new position every minute.",
-    "es": "Un reloj digital de 24 horas con el día de la semana y la fecha sobre negro, que cambia de posición cada minuto.",
-    "hu": "24 órás digitális óra a hét napjával és a dátummal fekete háttéren, amely percenként új helyre kerül.",
-    "ru": "Цифровые часы с 24-часовым временем, днём недели и датой на чёрном фоне, которые каждую минуту перемещаются на новое место."
+    "en": "A 24-hour digital clock with seconds, the weekday and date on black, moving to a new position every minute.",
+    "es": "Un reloj digital de 24 horas con segundos, el día de la semana y la fecha sobre negro, que cambia de posición cada minuto.",
+    "hu": "24 órás digitális óra másodpercekkel, a hét napjával és a dátummal fekete háttéren, amely percenként új helyre kerül.",
+    "ru": "Цифровые часы с 24-часовым временем, секундами, днём недели и датой на чёрном фоне, которые каждую минуту перемещаются на новое место."
   },
   "license": "MIT",
   "uses": [

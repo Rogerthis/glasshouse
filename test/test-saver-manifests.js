@@ -186,7 +186,8 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   assert.strictEqual(clockDate.available, true, clockDate.note);
   assert.strictEqual(clockDate.builtin, true);
   assert.strictEqual(clockDate.label, 'Clock date');
-  assert.deepEqual(clockDate.description, 'A 24-hour digital clock with the weekday and date on black, moving to a new position every minute.');
+  assert.deepEqual(clockDate.description, 'A 24-hour digital clock with seconds, the weekday and date on black, moving to a new position every minute.');
+  assert.ok(clockDate.description.indexOf('seconds') !== -1, 'seconds are described');
 
   env.files[path.join(APP, '.tvweb-screensaver')] = 'clock-date';
   env.files[path.join(APP, '.tvweb-brightness')] = 'dim';
@@ -196,6 +197,7 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   assert.strictEqual(main.indexOf('__TVWEB_'), -1, 'no placeholder left');
   assert.strictEqual(main.indexOf('hour12'), -1, 'nothing asks the TV for its 12-hour setting');
   assert.ok(main.indexOf('Qt.formatDate') !== -1, 'the day and date are drawn');
+  assert.ok(main.indexOf('getSeconds') !== -1, 'the seconds are drawn');
   console.log('  ✓ Clock date stages as its own saver, always in 24-hour time');
 })();
 

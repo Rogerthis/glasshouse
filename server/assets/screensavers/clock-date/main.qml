@@ -1,8 +1,8 @@
 /*
  * 24-hour clock screen saver.
  *
- * The Clock screen saver, with the day and date under it and the time always
- * in 24-hour form, whatever the TV's own time setting says. A copy rather than
+ * The Clock screen saver, with seconds, and the day and date under it, in
+ * 24-hour form whatever the TV's own time setting says. A copy rather than
  * a setting on Clock, so that one keeps following the TV. Mounted over
  * com.webos.app.screensaver, so it runs as the platform's own screen saver and
  * is dismissed the same way. QtQuick 2.4 and Eos.Window are the versions a
@@ -91,7 +91,7 @@ WebOSWindow {
             id: stack
             // Negative: the digits' Text box carries the font's descender, none
             // of which is drawn, so a plain gap reads as a much larger one.
-            spacing: -Math.round(20 * win.unit)
+            spacing: -Math.round(28 * win.unit)
 
             Row {
                 id: timeRow
@@ -177,6 +177,55 @@ WebOSWindow {
                     color: win.inkBright
                     text: "0"
                 }
+                // The same colon again before the seconds. It starts with the
+                // one above, so the two pulse together.
+                Item {
+                    id: colonSec
+                    width: Math.round(74 * win.unit)
+                    height: gauge.height
+
+                    SequentialAnimation on opacity {
+                        loops: Animation.Infinite
+                        running: true
+                        NumberAnimation { from: 1.0; to: 0.25; duration: 1000; easing.type: Easing.InOutSine }
+                        NumberAnimation { from: 0.25; to: 1.0; duration: 1000; easing.type: Easing.InOutSine }
+                    }
+
+                    Rectangle {
+                        width: Math.round(19 * win.unit)
+                        height: width
+                        radius: width / 2
+                        color: win.inkBright
+                        x: (colonSec.width - width) / 2
+                        y: Math.round(colonSec.height * 0.36)
+                    }
+                    Rectangle {
+                        width: Math.round(19 * win.unit)
+                        height: width
+                        radius: width / 2
+                        color: win.inkBright
+                        x: (colonSec.width - width) / 2
+                        y: Math.round(colonSec.height * 0.63)
+                    }
+                }
+                Text {
+                    id: secTens
+                    width: gauge.width
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: win.digitFamily
+                    font.pixelSize: Math.round(232 * win.unit)
+                    color: win.inkBright
+                    text: "0"
+                }
+                Text {
+                    id: secUnits
+                    width: gauge.width
+                    horizontalAlignment: Text.AlignHCenter
+                    font.family: win.digitFamily
+                    font.pixelSize: Math.round(232 * win.unit)
+                    color: win.inkBright
+                    text: "0"
+                }
             }
 
             /*
@@ -190,12 +239,12 @@ WebOSWindow {
             Text {
                 id: dateLine
                 width: timeRow.width
-                height: Math.round(76 * win.unit)
+                height: Math.round(90 * win.unit)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Math.round(56 * win.unit)
+                font.pixelSize: Math.round(66 * win.unit)
                 fontSizeMode: Text.Fit
-                minimumPixelSize: Math.round(32 * win.unit)
+                minimumPixelSize: Math.round(38 * win.unit)
                 color: win.inkDim
                 text: ""
             }
@@ -206,10 +255,13 @@ WebOSWindow {
         var now = new Date();
         var h = win.two(now.getHours());
         var m = win.two(now.getMinutes());
+        var s = win.two(now.getSeconds());
         hourTens.text = h.charAt(0);
         hourUnits.text = h.charAt(1);
         minTens.text = m.charAt(0);
         minUnits.text = m.charAt(1);
+        secTens.text = s.charAt(0);
+        secUnits.text = s.charAt(1);
         // "dddd d MMMM" keeps one order everywhere and translates the names
         // into the TV's language.
         dateLine.text = Qt.formatDate(now, "dddd d MMMM");
