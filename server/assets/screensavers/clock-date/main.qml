@@ -251,20 +251,37 @@ WebOSWindow {
         }
     }
 
+    property int shownSecond: -1
+    property int shownDay: -1
+
+    /*
+     * Called four times a second, and does nothing on most of them: the
+     * seconds are written only when they change, and the date is formatted
+     * only when the day does. Formatting the date and refitting it every
+     * second was enough to lose every other tick on a slower set.
+     */
     function refresh() {
         var now = new Date();
-        var h = win.two(now.getHours());
-        var m = win.two(now.getMinutes());
-        var s = win.two(now.getSeconds());
-        hourTens.text = h.charAt(0);
-        hourUnits.text = h.charAt(1);
-        minTens.text = m.charAt(0);
-        minUnits.text = m.charAt(1);
-        secTens.text = s.charAt(0);
-        secUnits.text = s.charAt(1);
-        // "dddd d MMMM" keeps one order everywhere and translates the names
-        // into the TV's language.
-        dateLine.text = Qt.formatDate(now, "dddd d MMMM");
+        var s = now.getSeconds();
+        if (s !== win.shownSecond) {
+            win.shownSecond = s;
+            var h = win.two(now.getHours());
+            var m = win.two(now.getMinutes());
+            var ss = win.two(s);
+            hourTens.text = h.charAt(0);
+            hourUnits.text = h.charAt(1);
+            minTens.text = m.charAt(0);
+            minUnits.text = m.charAt(1);
+            secTens.text = ss.charAt(0);
+            secUnits.text = ss.charAt(1);
+        }
+        var day = now.getFullYear() * 1000 + now.getMonth() * 40 + now.getDate();
+        if (day !== win.shownDay) {
+            win.shownDay = day;
+            // "dddd d MMMM" keeps one order everywhere and translates the
+            // names into the TV's language.
+            dateLine.text = Qt.formatDate(now, "dddd d MMMM");
+        }
     }
 
     /*
@@ -286,7 +303,9 @@ WebOSWindow {
         block.y = ny;
     }
 
-    Timer { interval: 1000;  running: true; repeat: true; onTriggered: win.refresh() }
+    // Four checks a second, so every second lands even if a tick is late or
+    // dropped. refresh() writes only what changed.
+    Timer { interval: 250; running: true; repeat: true; onTriggered: win.refresh() }
     Timer { interval: 60000; running: true; repeat: true; onTriggered: win.move() }
 
     Component.onCompleted: {
