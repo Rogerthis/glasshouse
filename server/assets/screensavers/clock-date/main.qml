@@ -89,7 +89,9 @@ WebOSWindow {
 
         Column {
             id: stack
-            spacing: Math.round(30 * win.unit)
+            // Negative: the digits' Text box carries the font's descender, none
+            // of which is drawn, so a plain gap reads as a much larger one.
+            spacing: -Math.round(20 * win.unit)
 
             Row {
                 id: timeRow
@@ -188,12 +190,12 @@ WebOSWindow {
             Text {
                 id: dateLine
                 width: timeRow.width
-                height: Math.round(72 * win.unit)
+                height: Math.round(76 * win.unit)
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pixelSize: Math.round(46 * win.unit)
+                font.pixelSize: Math.round(56 * win.unit)
                 fontSizeMode: Text.Fit
-                minimumPixelSize: Math.round(26 * win.unit)
+                minimumPixelSize: Math.round(32 * win.unit)
                 color: win.inkDim
                 text: ""
             }

@@ -138,7 +138,7 @@ console.log('Running test-screensavers.js ...');
   var ids = all.map(function (e) { return e.id; });
   assert.ok(ids.indexOf('stock') !== -1, 'catalog must include stock');
   assert.ok(ids.indexOf('clock') !== -1, 'catalog must include clock');
-  assert.ok(ids.indexOf('clock24') !== -1, 'catalog must include clock24');
+  assert.ok(ids.indexOf('clock-date') !== -1, 'catalog must include clock-date');
   assert.ok(ids.indexOf('starfield') !== -1, 'catalog must include starfield');
   assert.ok(ids.indexOf('fireworks') !== -1, 'catalog must include fireworks');
   assert.ok(ids.indexOf('vitals') !== -1, 'catalog must include vitals');

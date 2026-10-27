@@ -2,10 +2,10 @@
   "manifest": 1,
   "version": "1.0.0",
   "name": {
-    "en": "Clock, 24-hour",
-    "es": "Reloj, 24 horas",
-    "hu": "Óra, 24 órás",
-    "ru": "Часы, 24 часа"
+    "en": "Clock date",
+    "es": "Reloj y fecha",
+    "hu": "Óra és dátum",
+    "ru": "Часы и дата"
   },
   "description": {
     "en": "A 24-hour digital clock with the weekday and date on black, moving to a new position every minute.",
