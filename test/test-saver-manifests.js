@@ -171,5 +171,33 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   console.log('  ✓ the pigs Glasshouse installs as an example read as an added screen saver');
 })();
 
+// 10. Clock, 24-hour is a saver of its own, fixed to 24-hour time
+(function testClock24() {
+  screensavers.init({
+    luna: env.mockLuna,
+    config: { port: 8080, allowControl: true },
+    saverRoots: [{ dir: BUILTIN, builtin: true }]
+  });
+  var ids = screensavers.catalog().map(function (e) { return e.id; });
+  assert.strictEqual(ids.indexOf('clock24'), ids.indexOf('clock') + 1, 'listed beside Clock');
+
+  var clock24 = byId(screensavers.screensaverList().modes, 'clock24');
+  assert.ok(clock24, 'clock24 listed');
+  assert.strictEqual(clock24.available, true, clock24.note);
+  assert.strictEqual(clock24.builtin, true);
+  assert.strictEqual(clock24.label, 'Clock, 24-hour');
+  assert.deepEqual(clock24.description, 'A 24-hour digital clock with the weekday and date on black, moving to a new position every minute.');
+
+  env.files[path.join(APP, '.tvweb-screensaver')] = 'clock24';
+  env.files[path.join(APP, '.tvweb-brightness')] = 'dim';
+  screensavers.restageScreensaver();
+  var main = env.files[path.join(STAGE, 'qml', 'main.qml')];
+  assert.ok(main.indexOf('property int level: 0') !== -1, 'level filled in');
+  assert.strictEqual(main.indexOf('__TVWEB_'), -1, 'no placeholder left');
+  assert.strictEqual(main.indexOf('hour12'), -1, 'nothing asks the TV for its 12-hour setting');
+  assert.ok(main.indexOf('Qt.formatDate') !== -1, 'the day and date are drawn');
+  console.log('  ✓ Clock, 24-hour stages as its own saver, always in 24-hour time');
+})();
+
 env.restore();
 console.log('ALL test-saver-manifests.js assertions passed!');

@@ -1,0 +1,21 @@
+{
+  "manifest": 1,
+  "version": "1.0.0",
+  "name": {
+    "en": "Clock, 24-hour",
+    "es": "Reloj, 24 horas",
+    "hu": "Óra, 24 órás",
+    "ru": "Часы, 24 часа"
+  },
+  "description": {
+    "en": "A 24-hour digital clock with the weekday and date on black, moving to a new position every minute.",
+    "es": "Un reloj digital de 24 horas con el día de la semana y la fecha sobre negro, que cambia de posición cada minuto.",
+    "hu": "24 órás digitális óra a hét napjával és a dátummal fekete háttéren, amely percenként új helyre kerül.",
+    "ru": "Цифровые часы с 24-часовым временем, днём недели и датой на чёрном фоне, которые каждую минуту перемещаются на новое место."
+  },
+  "license": "MIT",
+  "uses": [
+    "level"
+  ],
+  "order": 11
+}
