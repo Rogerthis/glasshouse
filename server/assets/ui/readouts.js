@@ -230,6 +230,7 @@ async function tick() {
     const firstData = !lastOk;
     lastOk = Date.now();
 
+    renderKeyboardHint(d);
     const hk = hdmiKey(d);
     if (lastHdmiKey !== null && hk !== lastHdmiKey && hdmiLoaded) loadHdmi();
     lastHdmiKey = hk;
@@ -327,7 +328,10 @@ async function tick() {
       if (q('adv-piccap')) q('adv-piccap').hidden = !pc && !hs;
       const devVal = getLease('deviceDetection', d.deviceDetection);
       advPill('devdetect', 'btn_devdetect', devVal !== undefined ? devVal : d.deviceDetection);
-      if (q('adv-devices')) q('adv-devices').hidden = d.deviceDetection === undefined && !advLgsDevices;
+      const lookups = d.privacy ? d.privacy.localLookups === true : undefined;
+      const lookupsVal = getLease('localLookups', lookups);
+      advPill('locallookups', 'btn_locallookups', lookupsVal !== undefined ? lookupsVal : lookups);
+      if (q('adv-devices')) q('adv-devices').hidden = d.deviceDetection === undefined && lookups === undefined && !advLgsDevices;
       if (q('tl-cur')) {
         q('tl-cur').textContent = st === 'off' ? t('common.off', 'Off') : t('ctl.sleep.minutes', '{n} min', { n: st });
       }
@@ -447,7 +451,8 @@ async function tick() {
        measured on, so a Wi-Fi set reads its own counters, not a dormant eth0. */
     const nt = d.netTotal;
     const netParts = [];
-    if (d.ssid) netParts.push(esc(d.ssid));
+    // row() writes the sub-line as textContent, so the SSID goes in unescaped.
+    if (d.ssid) netParts.push(d.ssid);
     if (d.wifi && d.wifi.level) netParts.push(d.wifi.level + ' dBm');
     if (tx > 0) netParts.push(t('metrics.net.up', '{rate} kB/s up', { rate: tx.toFixed(0) }));
     if (nt) netParts.push('↓ ' + bytes(nt.rx) + ' ↑ ' + bytes(nt.tx));

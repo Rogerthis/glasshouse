@@ -48,11 +48,17 @@ On a wide screen the tabs are listed down the left. On a phone, or wherever Pref
 
     Live frame rate, VRR and the Game Optimizer.
 
+-   **[Picture](picture.md)**
+
+    ---
+
+    LG's picture settings for what is on screen.
+
 -   **[Audio](audio.md)**
 
     ---
 
-    Sound settings and the formats the TV and its receiver report.
+    Sound settings, the formats the TV and its receiver report, and experimental DTS forwarding.
 
 -   **[Screen savers](screen-savers.md)**
 
@@ -60,7 +66,7 @@ On a wide screen the tabs are listed down the left. On a phone, or wherever Pref
 
     Clock, Starfield, Fireworks, Bokeh, Harmonograph and Panel Vitals in place of LG's.
 
--   **[Advanced Controls](advanced.md)**
+-   **[System](advanced.md)**
 
     ---
 
