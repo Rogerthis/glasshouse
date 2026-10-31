@@ -3,7 +3,7 @@
 The **Screensaver** tab, `/?tab=screensaver`, provides fifteen alternatives to LG's default, and any added on the TV:
 
 * Clock
-* Clock date, always in 24-hour time with seconds, the weekday and date beneath it
+* Clock with date, the clock with seconds and the weekday and date beneath it
 * Starfield
 * Fireworks
 * Bokeh, soft circles of light drifting in and out
@@ -18,7 +18,7 @@ The **Screensaver** tab, `/?tab=screensaver`, provides fifteen alternatives to L
 * Tesseract, a four-dimensional cube turning through the fourth dimension, in fine lines of light that dim and turn violet with depth
 * Panel vitals, showing the TV's own panel hours and refresher countdown
 
-Each mode offers dim and bright variants, and visual elements continuously drift across the screen to prevent OLED burn-in or image retention. The clock and the time on Panel vitals draw 12-hour or 24-hour time as the TV's own time setting has it, and pick up a change the next time the screen saver starts; Clock date draws 24-hour time whatever that setting says.
+Each mode offers dim and bright variants, and visual elements continuously drift across the screen to prevent OLED burn-in or image retention. Both clocks and the time on Panel vitals draw 12-hour or 24-hour time as the TV's own time setting has it, and pick up a change the next time the screen saver starts.
 
 A firmware update restores the LG default.
 

@@ -171,7 +171,7 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   console.log('  ✓ the pigs Glasshouse installs as an example read as an added screen saver');
 })();
 
-// 10. Clock date is a saver of its own, fixed to 24-hour time
+// 10. Clock with date is a saver of its own, following the TV's 12/24-hour setting as Clock does
 (function testClockDate() {
   screensavers.init({
     luna: env.mockLuna,
@@ -185,8 +185,8 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   assert.ok(clockDate, 'clock-date listed');
   assert.strictEqual(clockDate.available, true, clockDate.note);
   assert.strictEqual(clockDate.builtin, true);
-  assert.strictEqual(clockDate.label, 'Clock date');
-  assert.deepEqual(clockDate.description, 'A 24-hour digital clock with seconds, the weekday and date on black, moving to a new position every minute.');
+  assert.strictEqual(clockDate.label, 'Clock with date');
+  assert.deepEqual(clockDate.description, 'A digital clock with seconds, the weekday and date on black, moving to a new position every minute.');
   assert.ok(clockDate.description.indexOf('seconds') !== -1, 'seconds are described');
 
   env.files[path.join(APP, '.tvweb-screensaver')] = 'clock-date';
@@ -195,10 +195,10 @@ function byId(list, id) { return list.filter(function (m) { return m.id === id; 
   var main = env.files[path.join(STAGE, 'qml', 'main.qml')];
   assert.ok(main.indexOf('property int level: 0') !== -1, 'level filled in');
   assert.strictEqual(main.indexOf('__TVWEB_'), -1, 'no placeholder left');
-  assert.strictEqual(main.indexOf('hour12'), -1, 'nothing asks the TV for its 12-hour setting');
+  assert.ok(/property bool hour12: (true|false)/.test(main), 'the TV\'s 12/24-hour setting filled in');
   assert.ok(main.indexOf('Qt.formatDate') !== -1, 'the day and date are drawn');
   assert.ok(main.indexOf('getSeconds') !== -1, 'the seconds are drawn');
-  console.log('  ✓ Clock date stages as its own saver, always in 24-hour time');
+  console.log('  ✓ Clock with date stages as its own saver, with the TV\'s 12/24-hour setting');
 })();
 
 // 11. An installed Homebrew Channel app's screen saver is listed, from its app,

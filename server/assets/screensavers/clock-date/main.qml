@@ -1,9 +1,9 @@
 /*
- * 24-hour clock screen saver.
+ * Clock with date screen saver.
  *
- * The Clock screen saver, with seconds, and the day and date under it, in
- * 24-hour form whatever the TV's own time setting says. A copy rather than
- * a setting on Clock, so that one keeps following the TV. Mounted over
+ * The Clock screen saver, with seconds, and the day and date under it. A copy
+ * rather than a setting on Clock: each saver is staged from its own folder,
+ * so they cannot share a file. Mounted over
  * com.webos.app.screensaver, so it runs as the platform's own screen saver and
  * is dismissed the same way. QtQuick 2.4 and Eos.Window are the versions a
  * webOS 4 set has; a webOS 9 set imports them too.
@@ -73,6 +73,12 @@ WebOSWindow {
     property int level: __TVWEB_LEVEL__
     property color inkBright: level > 0 ? "#ffffff" : "#a8aeb6"
     property color inkDim:    level > 0 ? "#c2c8d0" : "#5c6066"
+
+    /*
+     * 12-hour or 24-hour, written in when the screen saver is staged, as for
+     * Clock. With nothing at all in 24-hour, so the block keeps its width.
+     */
+    property bool hour12: __TVWEB_CLOCK12__
 
     function two(n) { return n < 10 ? "0" + n : "" + n }
 
@@ -226,6 +232,23 @@ WebOSWindow {
                     color: win.inkBright
                     text: "0"
                 }
+                // As Clock's: wrapped so its box matches the digits' height,
+                // and the small type sits on their baseline.
+                Item {
+                    visible: win.hour12
+                    width: merText.x + merText.width
+                    height: gauge.height
+
+                    Text {
+                        id: merText
+                        x: Math.round(34 * win.unit)
+                        y: parent.height - height - Math.round(14 * win.unit)
+                        font.family: win.digitFamily
+                        font.pixelSize: Math.round(76 * win.unit)
+                        color: win.inkBright
+                        text: ""
+                    }
+                }
             }
 
             /*
@@ -265,7 +288,9 @@ WebOSWindow {
         var s = now.getSeconds();
         if (s !== win.shownSecond) {
             win.shownSecond = s;
-            var h = win.two(now.getHours());
+            var hour = now.getHours();
+            if (win.hour12) merText.text = hour < 12 ? "AM" : "PM";
+            var h = win.two(win.hour12 ? (hour % 12) || 12 : hour);
             var m = win.two(now.getMinutes());
             var ss = win.two(s);
             hourTens.text = h.charAt(0);
